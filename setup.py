@@ -7,7 +7,7 @@ setup(
     description='Machine Learning toolkit',
     url='https://github.com/philipp-ludersdorfer/ml_helpers',
     install_requires=[
-        'matplotlib.pyplot',
+        'matplotlib',
         'sklearn'
     ],
 )
