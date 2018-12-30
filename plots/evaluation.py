@@ -83,6 +83,6 @@ def class_separation(y_true, y_score, bins = 30, alpha = 0.7, colors = ['oranger
     plt.grid()
     plt.xlabel('Predicted Score')
     plt.ylabel('Frequency')
-    plt.title('Class label Separation')
+    plt.title('Class Label Separation')
     plt.legend(loc='upper left')
     plt.show()
