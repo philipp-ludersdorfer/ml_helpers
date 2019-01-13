@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from sklearn import metrics
+from sklearn import metrics, calibration
 
 
 def roc_curve(y_true, y_score, color='mediumseagreen',lw=2):
@@ -85,4 +85,30 @@ def class_separation(y_true, y_score, bins = 30, alpha = 0.7, colors = ['oranger
     plt.ylabel('Frequency')
     plt.title('Class Label Separation')
     plt.legend(loc='upper left')
+    plt.show()
+
+
+def reliability_curve(y_true, y_score, bins = 10, color='dodgerblue', lw=2):
+    """Plots the distribution"""
+
+    brier_score = metrics.brier_score_loss(y_true, y_score, pos_label=y_true.max())
+
+    prop_true, prop_pred = calibration.calibration_curve(y_true=y_true,
+                                                         y_prob=y_score,
+                                                         n_bins=bins)
+
+    plt.figure()
+    # create plot
+    plt.figure()
+    # Draw precision-recall curve
+    plt.plot(prop_pred, prop_true, color=color, lw=lw, label='Brier score = %0.2f)' % brier_score)
+    # draw reference line
+    plt.plot([0, 1], [0, 1], color='black',lw=lw, linestyle='--')
+    plt.ylabel('Fraction of positives')
+    plt.xlabel('Predicted score')
+    plt.twinx()
+    plt.hist(y_score, bins=30, alpha=0.3, color=color)
+    plt.ylabel('Frequency')
+    plt.grid()
+    plt.title('Calibration Plot (Reliability Curve)')
     plt.show()
